@@ -1,5 +1,7 @@
-# SEAT Attention 
-This is our implementation for AAAI'22 submission *SEAT: Stable and Explainable Attention*. We provide detailed environments setup and script for quickly running our experiments.
+# SEATv2
+This is our implementation for *Towards Stable and Explainable Attention Mechanisms*, a new version of SEAT.
+
+A prior conference version is published at AAAI'23 *SEAT: Stable and Explainable Attention*. We provide detailed environment setup and script for quickly running our experiments.
 
 
 # Environments Setup
@@ -50,4 +52,18 @@ python ./attention/train.py --dataset sst --data_dir . --output_dir ./outputs/ -
 ```
 
 ## Code Implementation References
-- Thanks [code](https://github.com/sarahwie/attention) provided by Sarthak Jain & Byron Wallace for their paper *[Attention is not not Explanation](https://arxiv.org/abs/1908.04626)* 
+- Thanks [code](https://github.com/sarahwie/attention) provided by Sarthak Jain & Byron Wallace for their paper *[Attention is not not Explanation](https://arxiv.org/abs/1908.04626)*
+
+## Citation
+
+```
+@inproceedings{hu2023seat,
+  title={Seat: stable and explainable attention},
+  author={Hu, Lijie and Liu, Yixin and Liu, Ninghao and Huai, Mengdi and Sun, Lichao and Wang, Di},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={37},
+  number={11},
+  pages={12907--12915},
+  year={2023}
+}
+```
