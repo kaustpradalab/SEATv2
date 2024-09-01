@@ -39,7 +39,7 @@ def kld(a1, a2):
 
 def jsd(p, q):
     m = 0.5 * (p + q)
-    jsd = 0.5 * (kld(p, m) + kld(q, m))  # for each instance in the batch
+    jsd = 0.5 * (kld(p, m) + kld(q, m))  
 
     return jsd.unsqueeze(-1)  # jsd.squeeze(1).sum()
 
@@ -52,7 +52,7 @@ import pandas as pd
 import torch
 from IPython.display import display
 
-def tvd(predictions, targets): #accepts two numpy arrays of dimension: (num. instances, )
+def tvd(predictions, targets): 
     return (0.5 * np.abs(predictions - targets)).sum()
 
 def batch_tvd(predictions, targets): #accepts two Torch tensors... " "
@@ -106,25 +106,16 @@ def print_metrics(metrics, adv=False) :
     with pd.option_context('display.max_columns', 30):
         display(df.round(3))
 
-    # if adv :
-    #     print("TVD:", metrics['TVD'])
-        # print("JS:", metrics['js_divergence'])
-
 def batch_jaccard_similarity(gt, pred):
-    intersection = torch.min(gt, pred).sum(dim=1)  # 计算每个样本的交集
-    union = torch.max(gt, pred).sum(dim=1)  # 计算每个样本的并集
-    similarity = intersection / union  # 计算每个样本的Jaccard相似性
+    intersection = torch.min(gt, pred).sum(dim=1) 
+    union = torch.max(gt, pred).sum(dim=1)  
+    similarity = intersection / union  
     return similarity
 
 def jaccard_similarity(gt, pred, top_k=2):
-    # 选择前top_k个最高的注意力
     gt_top_k = torch.topk(gt, top_k, dim=1).values
     pred_top_k = torch.topk(pred, top_k, dim=1).values
-    
-    # 计算Jaccard相似性
     jaccard_sim = batch_jaccard_similarity(gt_top_k, pred_top_k)
-    
-    # 计算均值
     mean_similarity = jaccard_sim.mean()
     
     return mean_similarity
@@ -147,7 +138,6 @@ def topK_overlap_true_loss(a,b,K=2):
     for i in range(N):
         inset = np.intersect1d(t1[i,:K],t2[i,:K])
         overlap = len(inset)/K
-        # print(overlap)
         loss.append(overlap)
     return np.mean(loss)
 
@@ -225,9 +215,6 @@ if __name__ == '__main__':
     from torch.autograd import gradcheck
     import torch
     import torch.nn as nn
-
-    # intersection_of_two_tensor(t1[i], t2[i])
-
     t1 = torch.tensor(
         np.array([[100, 2, 3, 4],
                   [2, 1, 3, 7]],),requires_grad=True, dtype=torch.double
