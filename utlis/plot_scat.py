@@ -1,11 +1,8 @@
-#this code is used to draw Fig. 5 in our paper.
-#please remove the plotting.py.forScat's file suffix before use this code.
 import numpy as np
 import matplotlib.pyplot as plt
 import plotting
 import pickle
 import os
-#if you want to get the data,please modify the commented out code in attention/model/Binary_Classification.py/train_ours
 fig, axes = plotting.init_gridspec(1, 4, 4)
 num=0
 X_vals = my_list = [ i for _ in range(4)  for i in range(1, 41) ]
