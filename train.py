@@ -60,8 +60,6 @@ if args.train_mode == "adv_train":
 wandb.log({
     "final_metric":final_metric
 })
-
-### kill the program otherwise it will have unexpected deadlock
 wandb.finish()
 import os
 import signal
