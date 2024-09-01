@@ -11,9 +11,9 @@ mpl.style.use('seaborn-poster')
 sns.set_palette(sns.color_palette(['#7570b3', '#d95f02', '#1b9e77','#0000FF']))
 # sns.palplot(sns.color_palette(['#7570b3', '#d95f02', '#1b9e77']))
 
-font = {'family': 'serif',  # 字体族
-        'style': 'normal',   # 字体样式
-        'size': 12,          # 字体大小
+font = {'family': 'serif', 
+        'style': 'normal',  
+        'size': 12,          
         'weight': 'bold'}
 mpl.rc('font', **font)
 
@@ -31,9 +31,9 @@ def init_gridspec(nrow, ncol, nax) :
 
 def adjust_gridspec() :
     plt.subplots_adjust(wspace=0.3, hspace=0)
-    font = {'family': 'serif',  # 字体族
-        'style': 'normal',   # 字体样式
-        'size': 12,          # 字体大小
+    font = {'family': 'serif', 
+        'style': 'normal',   
+        'size': 12,        
         'weight': 'bold'}
     mpl.rc('font', **font)
     #plt.tight_layout()
@@ -97,8 +97,6 @@ def annotate(ax, xlabel=None, ylabel=None, title=None, xlim=None, ylim=None, leg
     set_square_aspect(ax)
     sns.despine(ax=ax)
     if legend is None and ax.get_legend() is not None : ax.get_legend().remove()
-
-###########################################################################################################################
 
 def plot_violin_by_class(ax, X_vals, Y_vals, yhat, xlim, bins=4) :
     bins = xlim[0] + np.arange(bins+1) / bins * (xlim[1]+1e-4 - xlim[0])
