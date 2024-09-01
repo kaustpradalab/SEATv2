@@ -1,5 +1,4 @@
-#please run the code "prepare_data_w2v/bert" first.if you want to get the result in the last form in our paper, modify the comment section of "prepare_data_w2v/bert"
-#this code is used to test the vectors.
+
 from gensim.models import KeyedVectors
 model_path='./.vector_cache/wiki.simple.vec'
 word_vectors = KeyedVectors.load_word2vec_format(model_path, binary=False)
