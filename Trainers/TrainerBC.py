@@ -7,7 +7,6 @@ from attention.preprocess import vectorizer
 import wandb
 import torch
 from copy import deepcopy
-
 class Trainer():
     def __init__(self, dataset, args, config):
         Model = BC.Model
@@ -95,21 +94,14 @@ class Trainer():
 
 
         if args.eval_baseline:
-            # for eval the original model
             evaluator = Evaluator(args.gold_label_dir, args)
             original_metric, _, _ = evaluator.evaluate(dataset['test'], save_results=False)
-            #
             wandb.log({
                 "original_metric": original_metric,
             })
-
-            # log original performance of defense x preturb
             res_baseline = evaluator.model.perturb_x_eval(dataset['test'], X_PGDer=self.X_PGDer, args=args)
-            
-            ## three metrics
             comp, suff = evaluator.model.eval_comp_suff(dataset['test'], X_PGDer=self.X_PGDer, args=args)
             sens = evaluator.model.eval_sens(dataset['test'], X_PGDer=self.X_PGDer, args=args)
-            
             wandb.log({
                 "baseline_suff_te": suff,
                 "baseline_comp_te": comp,
@@ -170,7 +162,6 @@ class Trainer():
             print("TRAIN METRICS:")
             if self.display_metrics:
                 print_metrics(train_metrics, adv=True)
-            #
             predictions_te, attentions_te = self.model.evaluate(dataset['test'], args=args)
 
             predictions_te = np.array(predictions_te)
