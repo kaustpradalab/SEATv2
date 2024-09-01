@@ -1,8 +1,3 @@
-#If you want to get the result in the last form in our paper, please use the commented code in prepare_data_w2v.py.
-#We advise you to preturb the data manually,since the result will be better.
-#This is my first time writing a paper, so there may be many flaws in the code. 
-#If you find any errors or issues, please let me know and I would greatly appreciate it. 
-#most of code in this file has similar function with the counterpart in prepare_data_w2v.py
 from datasets import load_dataset,DatasetDict,load_from_disk
 save_path = './data/'
 def map_labels(label):
@@ -14,15 +9,11 @@ def map_labels(label):
         return -1
 for dataset in ['emotion', 'SetFit/sst5', 'rotten_tomatoes', 'hate']:
     dataname = dataset
-    #if you have local dataset:
-    #dataset = load_from_disk(save_path+dataname)
-    #else:
     if dataname in ['emoji', "sentiment", "stance_abortion", "stance_atheism", "stance_climate", "stance_feminist", \
                 "stance_hillary", 'hate','emotion']:
         dataset = load_dataset('tweet_eval', dataname)
     else:
         dataset = load_dataset(dataname)
-    # read data from dataset
     df_trian = dataset['train'].to_pandas()
     df_test = dataset['test'].to_pandas()
     if dataname=='SetFit/sst5':
@@ -37,22 +28,18 @@ for dataset in ['emotion', 'SetFit/sst5', 'rotten_tomatoes', 'hate']:
     df_test['exp_split'] = "test"
     df = df_trian._append(df_test)
     df = df.dropna(axis=0,how='any')
-    #insert the commented code in prepare_data_w2v.py at here if you want to preturb the sentence.
     print('token mean length:',df['text'].apply(lambda x: len(x)).mean())
     print("train data negative:",df_trian['label'].count()-df_trian['label'].sum())
     print("train data positive:",df_trian['label'].sum())
     print("test data negative:",df_test['label'].count()-df_test['label'].sum())
     print("test data positive:",df_test['label'].sum())
-
     if dataname == "SetFit/sst5":
         dataname = "sst"
-
     import os
     df_path = f'./{dataname}'
     try:
         os.mkdir(df_path)
     except:
         pass
-
     df_file = f"./{dataname}/data.csv"
     df.to_csv(df_file)
