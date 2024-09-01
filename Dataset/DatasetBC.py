@@ -5,7 +5,7 @@ import json
 from attention.preprocess import vectorizer
 import pandas as pd
 from attention.Dataset.uni_dataset import UnifiedDataset
-
+from attention.arguments import *
 class DatasetWrapper:
     def __init__(self, data, bert=False,name=None):
         dataset_train, dataset_test = data['train'], data['test']
@@ -40,7 +40,11 @@ def load_dataset_custom(dataset_name,args=None):
                        , dataset_name=dataset_name, train=True, args=args, target=args.train_mode=="adv_train",)
         dataset_test = UnifiedDataset(bert=False, datadir='attention/preprocess/' + dataset_name + "/vec.p"\
                        , dataset_name=dataset_name, train=False, args=args, target=args.train_mode=="adv_train",)
-
+parser.add_argument("--data_dir", type=str, default=".")
+parser.add_argument("--output_dir", type=str,default="./outputs/")
+parser.add_argument('--encoder', type=str, choices=[ 'average', 'lstm','simple-rnn','bert'], default="lstm")
+parser.add_argument('--attention', type=str, choices=['tanh', 'frozen', 'pre-loaded'], required=False)
+parser.add_argument('--n_epoch', type=int, required=False, default=40)
 
     return DatasetWrapper({
         "train": dataset_train,
